@@ -1,0 +1,18 @@
+<aside class="menu-sidebar d-none d-lg-block">
+			<div class="logo">
+				<a href="#">
+					<img src="assets/images/logo.png" alt="luv2shop" class="img-responsive">
+				</a>
+			</div>
+			<div class="menu-sidebar-content js-scrollbar1">
+				<nav class="navbar-sidebar">
+					<div *ngFor = "let categoryItems of categories">
+					<ul class="list-unstyled navbar-list">
+						<li>
+							<a routerLink = "/category/{{categoryItems.id}}">{{categoryItems.categoryName}}</a>
+						</li>
+					</ul>
+				</div>
+				</nav>
+			</div>
+		</aside>

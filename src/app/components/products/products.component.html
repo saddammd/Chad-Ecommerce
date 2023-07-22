@@ -1,0 +1,82 @@
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+            <div class="row" *ngIf="productResponse.data.Page.content !== undefined">
+                <div *ngFor="let productList of productResponse.data.Page.content" class="col-md-3">
+                    <div class="product-box">
+                        <a routerLink="/products/product/{{productList.id}}">
+                            <img src="{{productList.image_url}}" class="img-responsive">
+                        </a>
+                        <a routerLink="/products/product/{{productList.id}}">
+                            <h1> {{productList.name}}</h1>
+                        </a>
+                        <div class="price"> {{productList.unit_price}} </div>
+                        <button type = button class="btn btn-primary" (click)="addToCart(productList)">Add to cart</button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="error" class="alert alert-warning col-md-12" role="alert">
+                {{error}}
+            </div>
+
+             <div class="footer-pagination">
+                <div *ngIf="productResponse.data.Page.totalElements > 10" class="row">
+                  <!--  <div class="col-md-6"></div> -->
+                    <div class="col-md-6">
+                        <div class="items" (change)="selectPageSize($event)">
+                            <label>Item per page</label> <select>
+                                <option>10</option>
+                                <option>20</option>
+                                <option>30</option>
+                                <option>40</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div *ngIf="productResponse.data.Page.totalPages > 1" class="col-md-4">
+                        <nav aria-label="pagination">
+                            <ul class="pagination">
+                                <li class="page-item disabled">
+                                    <a class="page-link" (click)="navigatetoPageNo(1)"><<</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" (click)="navigatetoPageNo(-1)"><</a>
+                                </li>                            
+
+                                <li class="page-item" [class.active]=pagination_active1>
+                                    <a class="page-link" (click)="navigatetoPageNo(pagination_button1); isActive1()">{{pagination_button1}}</a>
+                                </li>
+
+                                <li class="page-item" [class.active]=pagination_active2>
+                                    <a class="page-link" (click)="navigatetoPageNo(pagination_button2); isActive2()">{{pagination_button2}}</a>
+                                </li>
+
+                                <li class="page-item" [class.active]=pagination_active3>
+                                    <a class="page-link" (click)="navigatetoPageNo(pagination_button3)">{{pagination_button3}}</a>
+                                </li>
+
+
+
+                                <li *ngIf = "this.pageNumber < this.productResponse.data.Page.totalPages - 1" class="page-item disabled" >
+                                    <a *ngIf = "productResponse.data.Page.last != true"  class="page-link">...</a>
+                                </li>
+
+
+                                <li *ngIf = "productResponse.data.Page.totalPages>3" class="page-item" [class.active]=pagination_active4 >
+                                    <a class="page-link" (click)="navigatetoPageNo(productResponse.data.Page.totalPages); isActive4()">{{productResponse.data.Page.totalPages}}</a>
+                                </li>                       
+
+                                <li class="page-item" (click)="navigatetoPageNo(4)">
+                                    <a class="page-link">></a>
+                                </li>
+                                <li class="page-item" (click)="navigatetoPageNo(productResponse.data.Page.totalPages)">
+                                    <a class="page-link">>></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+          </div>
+        </div>
+    </div>
+</div>
